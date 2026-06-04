@@ -1,0 +1,25 @@
+.theme-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.theme-select__label {
+  font-size: 12px;
+  color: var(--app-text-muted);
+}
+
+.theme-select__control {
+  padding: 3px 8px;
+  font-size: 12px;
+  border: 1px solid var(--app-border);
+  border-radius: 6px;
+  background: var(--app-btn-bg);
+  color: var(--app-text);
+}
+
+.theme-select__control:focus {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 0;
+}

@@ -1,0 +1,53 @@
+{
+  "name": "markdown-reader-lite",
+  "private": true,
+  "version": "0.1.0",
+  "description": "超轻量 Markdown 阅读器（只读）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "check": "npm run lint && npm run build",
+    "build:release": "npm run build && tauri build",
+    "build:win": "node scripts/ensure-platform.mjs win32 && npm run build && tauri build --bundles nsis",
+    "build:mac": "node scripts/ensure-platform.mjs darwin && npm run build && tauri build --bundles app,dmg",
+    "report:size": "node scripts/report-bundle-size.mjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"*.{ts,json,md,html}\""
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2.7.1",
+    "@tauri-apps/plugin-fs": "^2.5.1",
+    "@tauri-apps/plugin-opener": "^2",
+    "github-markdown-css": "^5.9.0",
+    "katex": "^0.17.0",
+    "markdown-it": "^14.2.0",
+    "markdown-it-multimd-table": "^4.2.3",
+    "markdown-it-task-lists": "^2.1.1",
+    "markdown-it-texmath": "^1.0.0",
+    "mermaid": "^11.15.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@tauri-apps/cli": "^2",
+    "@types/markdown-it": "^14.1.2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "prettier": "^3.5.3",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.33.1",
+    "vite": "^7.0.4"
+  }
+}

@@ -1,0 +1,31 @@
+/* 暖色 / 绿色主题下覆盖 GitHub Markdown 变量 */
+:root[data-theme="sepia"] .markdown-viewer.markdown-body {
+  color-scheme: light;
+  --fgColor-default: #3d3429;
+  --fgColor-muted: #6b5f4f;
+  --fgColor-accent: #8b5a2b;
+  --bgColor-default: transparent;
+  --bgColor-muted: #ebe3cf;
+  --borderColor-default: #d4c9b0;
+  --borderColor-muted: #e0d6c2;
+}
+
+:root[data-theme="forest"] .markdown-viewer.markdown-body {
+  color-scheme: light;
+  --fgColor-default: #2a3d28;
+  --fgColor-muted: #4f6349;
+  --fgColor-accent: #2d6a3e;
+  --bgColor-default: transparent;
+  --bgColor-muted: #dce8d8;
+  --borderColor-default: #b8cbb2;
+  --borderColor-muted: #c8d8c4;
+}
+
+:root[data-theme="sepia"] body,
+:root[data-theme="sepia"] .app-content {
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+}
+
+:root[data-theme="sepia"] .markdown-viewer.markdown-body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+}

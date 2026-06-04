@@ -1,0 +1,4 @@
+[[permission]]
+identifier = "allow-launch-document-paths"
+description = "Allow reading Markdown paths from process arguments"
+commands.allow = ["launch_document_paths"]

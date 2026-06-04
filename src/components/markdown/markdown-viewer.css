@@ -1,0 +1,87 @@
+.markdown-viewer :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 16px;
+}
+
+/* GitHub CSS 清浮动伪元素，避免多余占位影响滚动高度 */
+.markdown-viewer.markdown-body::before,
+.markdown-viewer.markdown-body::after {
+  display: none;
+}
+
+.markdown-viewer {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0;
+  /* 与 app-content 背景一致，避免 GitHub CSS 自带底色块 */
+  background-color: transparent !important;
+}
+
+.markdown-viewer img,
+.markdown-viewer .md-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 12px 0;
+  border-radius: 6px;
+  cursor: zoom-in;
+}
+
+.markdown-viewer .md-image:hover {
+  opacity: 0.92;
+}
+
+.markdown-viewer pre {
+  overflow-x: auto;
+}
+
+.markdown-viewer .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-viewer .task-list-item input {
+  margin: 0 0.2em 0.25em -1.4em;
+  vertical-align: middle;
+}
+
+/* KaTeX */
+.markdown-viewer .katex-display {
+  margin: 1em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Mermaid */
+.markdown-viewer .mermaid-wrapper {
+  margin: 16px 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.markdown-viewer pre.mermaid {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.markdown-viewer .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 搜索高亮 */
+.markdown-viewer mark.search-highlight {
+  padding: 0 2px;
+  border-radius: 2px;
+  background: var(--app-search-highlight);
+  color: inherit;
+}
+
+.markdown-viewer mark.search-highlight--active {
+  background: var(--app-search-highlight-active);
+  outline: 2px solid var(--app-accent);
+  outline-offset: 1px;
+}

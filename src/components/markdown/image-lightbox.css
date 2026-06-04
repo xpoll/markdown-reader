@@ -1,0 +1,38 @@
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--app-overlay);
+  cursor: zoom-out;
+}
+
+.image-lightbox__img {
+  max-width: min(96vw, 1400px);
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgb(0 0 0 / 40%);
+  cursor: default;
+}
+
+.image-lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 15%);
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.image-lightbox__close:hover {
+  background: rgb(255 255 255 / 28%);
+}

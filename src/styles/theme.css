@@ -1,0 +1,69 @@
+:root[data-theme="light"] {
+  --app-bg: #ffffff;
+  --app-surface: #f6f8fa;
+  --app-surface-elevated: #ffffff;
+  --app-border: #d0d7de;
+  --app-text: #24292f;
+  --app-text-muted: #656d76;
+  --app-accent: #0969da;
+  --app-accent-hover: #0860ca;
+  --app-search-bg: #fff8c5;
+  --app-search-highlight: #fff8c5;
+  --app-search-highlight-active: #ffdf5d;
+  --app-btn-bg: #ffffff;
+  --app-btn-hover: #f3f4f6;
+  --app-overlay: rgb(0 0 0 / 72%);
+}
+
+:root[data-theme="dark"] {
+  --app-bg: #0d1117;
+  --app-surface: #161b22;
+  --app-surface-elevated: #21262d;
+  --app-border: #30363d;
+  --app-text: #e6edf3;
+  --app-text-muted: #8b949e;
+  --app-accent: #4493f8;
+  --app-accent-hover: #58a6ff;
+  --app-search-bg: #3a2f0a;
+  --app-search-highlight: #3d2e00;
+  --app-search-highlight-active: #9e6a03;
+  --app-btn-bg: #21262d;
+  --app-btn-hover: #30363d;
+  --app-overlay: rgb(0 0 0 / 82%);
+}
+
+/* 护眼纸张色（类似阅读器暖色模式） */
+:root[data-theme="sepia"] {
+  --app-bg: #f4ecd8;
+  --app-surface: #ebe3cf;
+  --app-surface-elevated: #faf6eb;
+  --app-border: #d4c9b0;
+  --app-text: #3d3429;
+  --app-text-muted: #6b5f4f;
+  --app-accent: #8b5a2b;
+  --app-accent-hover: #6f4522;
+  --app-search-bg: #efe0b8;
+  --app-search-highlight: #e8d49a;
+  --app-search-highlight-active: #d4b86a;
+  --app-btn-bg: #faf6eb;
+  --app-btn-hover: #e8dcc4;
+  --app-overlay: rgb(45 35 25 / 72%);
+}
+
+/* 柔和绿色护眼 */
+:root[data-theme="forest"] {
+  --app-bg: #e8f0e6;
+  --app-surface: #dce8d8;
+  --app-surface-elevated: #f2f7f0;
+  --app-border: #b8cbb2;
+  --app-text: #2a3d28;
+  --app-text-muted: #4f6349;
+  --app-accent: #2d6a3e;
+  --app-accent-hover: #245732;
+  --app-search-bg: #d4e8c8;
+  --app-search-highlight: #c5ddb8;
+  --app-search-highlight-active: #9bc488;
+  --app-btn-bg: #f2f7f0;
+  --app-btn-hover: #d0e0ca;
+  --app-overlay: rgb(20 40 25 / 72%);
+}

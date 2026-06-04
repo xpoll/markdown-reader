@@ -1,0 +1,172 @@
+.app-layout {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-toolbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 40px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--app-border);
+  background: var(--app-surface);
+  user-select: none;
+}
+
+.app-toolbar__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--app-text);
+  flex-shrink: 0;
+}
+
+.app-toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.app-toolbar__file {
+  font-size: 12px;
+  color: var(--app-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 280px;
+}
+
+.app-btn {
+  padding: 5px 12px;
+  font-size: 13px;
+  border: 1px solid var(--app-border);
+  border-radius: 6px;
+  background: var(--app-btn-bg);
+  color: var(--app-text);
+}
+
+.app-btn:hover {
+  background: var(--app-btn-hover);
+}
+
+.app-btn--primary {
+  border-color: var(--app-accent);
+  background: var(--app-accent);
+  color: #ffffff;
+}
+
+.app-btn--primary:hover {
+  background: var(--app-accent-hover);
+}
+
+.app-btn--toolbar {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.app-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-sidebar {
+  flex-shrink: 0;
+  width: 240px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--app-border);
+  background: var(--app-surface);
+  overflow: hidden;
+}
+
+.app-toc__placeholder {
+  padding: 16px 12px;
+  font-size: 12px;
+  color: var(--app-text-muted);
+}
+
+.app-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 32px 48px;
+  background: var(--app-bg);
+}
+
+/* 仅内容超出时滚动；轨道透明，悬停/滚动时再显示滑块 */
+.app-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.app-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.app-content::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.app-content:hover::-webkit-scrollbar-thumb,
+.app-content:focus-within::-webkit-scrollbar-thumb {
+  background-color: var(--app-border);
+}
+
+.app-content {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.app-content:hover,
+.app-content:focus-within {
+  scrollbar-color: var(--app-border) transparent;
+}
+
+.app-content__welcome {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--app-text-muted);
+}
+
+.app-content__welcome h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--app-text);
+  margin: 0 0 8px;
+}
+
+.app-content__welcome p {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.app-content__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.app-content__phase {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 12px;
+  background: var(--app-search-bg);
+  color: var(--app-accent);
+}

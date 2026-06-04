@@ -1,0 +1,68 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.sidebar__tabs {
+  display: flex;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--app-border);
+}
+
+.sidebar__tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--app-text-muted);
+}
+
+.sidebar__tab:hover {
+  color: var(--app-text);
+  background: var(--app-btn-hover);
+}
+
+.sidebar__tab--active {
+  color: var(--app-text);
+  border-bottom-color: var(--app-text);
+  font-weight: 600;
+}
+
+.sidebar__panel {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sidebar__panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar__panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar__panel::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.sidebar__panel:hover::-webkit-scrollbar-thumb {
+  background-color: var(--app-border);
+}
+
+.sidebar__panel {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.sidebar__panel:hover {
+  scrollbar-color: var(--app-border) transparent;
+}

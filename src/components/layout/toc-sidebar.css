@@ -1,0 +1,70 @@
+.toc-nav {
+  padding: 12px 0 16px;
+}
+
+.toc-nav__title {
+  margin: 0 0 8px;
+  padding: 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--app-text-muted);
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-item--level-2 .toc-list {
+  padding-left: 12px;
+}
+
+.toc-item--level-3 .toc-list {
+  padding-left: 12px;
+}
+
+.toc-item--level-4 .toc-list,
+.toc-item--level-5 .toc-list,
+.toc-item--level-6 .toc-list {
+  padding-left: 10px;
+}
+
+.toc-item__btn {
+  display: block;
+  width: 100%;
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--app-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toc-item__btn:hover {
+  background: var(--app-btn-hover);
+  color: var(--app-accent);
+}
+
+.toc-item--level-1 > .toc-item__btn {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.toc-item--level-2 > .toc-item__btn {
+  font-size: 12px;
+}
+
+.toc-item--level-3 > .toc-item__btn,
+.toc-item--level-4 > .toc-item__btn,
+.toc-item--level-5 > .toc-item__btn,
+.toc-item--level-6 > .toc-item__btn {
+  font-size: 12px;
+  color: var(--app-text-muted);
+}
