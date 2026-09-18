@@ -70,6 +70,15 @@
   font-size: 12px;
 }
 
+.app-btn--toolbar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.app-btn--toolbar:disabled:hover {
+  background: var(--app-btn-bg);
+}
+
 .app-body {
   flex: 1;
   display: flex;

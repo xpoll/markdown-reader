@@ -12,6 +12,10 @@ interface SidebarProps {
   activeFilePath: string | null;
   fileTree: FileTreeState;
   toc: TocNode[];
+  canGoHome: boolean;
+  canGoBack: boolean;
+  onGoHome: () => void;
+  onGoBack: () => void;
   onOpenFileFromTree: (path: string) => void;
   onOpenFolder: () => void;
 }
@@ -21,6 +25,10 @@ export function Sidebar({
   activeFilePath,
   fileTree,
   toc,
+  canGoHome,
+  canGoBack,
+  onGoHome,
+  onGoBack,
   onOpenFileFromTree,
   onOpenFolder,
 }: SidebarProps) {
@@ -54,6 +62,10 @@ export function Sidebar({
             rootPath={rootPath}
             activeFilePath={activeFilePath}
             tree={fileTree}
+            canGoHome={canGoHome}
+            canGoBack={canGoBack}
+            onGoHome={onGoHome}
+            onGoBack={onGoBack}
             onOpenFile={onOpenFileFromTree}
             onOpenFolder={onOpenFolder}
           />

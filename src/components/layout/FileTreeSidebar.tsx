@@ -8,6 +8,10 @@ interface FileTreeSidebarProps {
   rootPath: string | null;
   activeFilePath: string | null;
   tree: FileTreeState;
+  canGoHome: boolean;
+  canGoBack: boolean;
+  onGoHome: () => void;
+  onGoBack: () => void;
   onOpenFile: (path: string) => void;
   onOpenFolder: () => void;
 }
@@ -16,6 +20,30 @@ function basename(path: string): string {
   const normalized = path.replace(/\\/g, "/");
   const parts = normalized.split("/");
   return parts[parts.length - 1] || path;
+}
+
+function IconHome() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+      <path d="M8 1.5 1.5 7h1.8v6.5h3.4V10h2.6v3.5h3.4V7H14.5L8 1.5z" />
+    </svg>
+  );
+}
+
+function IconBack() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+      <path d="M9.5 3.2 4.7 8l4.8 4.8 1.1-1.1L6.9 8l3.7-3.7-1.1-1.1z" />
+    </svg>
+  );
+}
+
+function IconChangeFolder() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+      <path d="M1.5 3.2h4.2l1.3 1.6h7.5v8H1.5v-9.6zm1.3 1.3v7h10.4V6.1H6.5l-1.3-1.6H2.8z" />
+    </svg>
+  );
 }
 
 function TreeNode({
@@ -107,6 +135,10 @@ export function FileTreeSidebar({
   rootPath,
   activeFilePath,
   tree,
+  canGoHome,
+  canGoBack,
+  onGoHome,
+  onGoBack,
   onOpenFile,
   onOpenFolder,
 }: FileTreeSidebarProps) {
@@ -153,16 +185,39 @@ export function FileTreeSidebar({
   return (
     <div className="file-tree">
       <div className="file-tree__header">
+        <div className="file-tree__nav">
+          <button
+            type="button"
+            className="file-tree__icon-btn"
+            onClick={onGoHome}
+            disabled={!canGoHome}
+            title="回到工作区根目录"
+            aria-label="回到工作区根目录"
+          >
+            <IconHome />
+          </button>
+          <button
+            type="button"
+            className="file-tree__icon-btn"
+            onClick={onGoBack}
+            disabled={!canGoBack}
+            title="上一级目录"
+            aria-label="上一级目录"
+          >
+            <IconBack />
+          </button>
+        </div>
         <span className="file-tree__root" title={rootPath}>
           {rootName}
         </span>
         <button
           type="button"
-          className="file-tree__open-folder"
+          className="file-tree__icon-btn"
           onClick={onOpenFolder}
-          title="选择其他文件夹"
+          title="更换文件夹"
+          aria-label="更换文件夹"
         >
-          更换
+          <IconChangeFolder />
         </button>
       </div>
       <ul className="file-tree__list" role="tree" aria-label="文件目录">

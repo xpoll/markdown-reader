@@ -6,6 +6,10 @@ import {
   applySearchHighlights,
   setActiveSearchMatch,
 } from "@/lib/search/highlight";
+import {
+  scrollArticleToHash,
+  scrollContentToTop,
+} from "@/lib/scroll";
 import type { ResolvedTheme } from "@/lib/theme/types";
 import {
   navigateMarkdownLink,
@@ -17,11 +21,18 @@ import "./markdown-viewer.css";
 interface MarkdownViewerProps {
   html: string;
   documentPath: string | null;
+  documentEpoch: number;
+  pendingScrollHash: string | null;
+  onPendingScrollHashConsumed: () => void;
   resolvedTheme: ResolvedTheme;
   searchQuery: string;
   searchMatchIndex: number;
   onSearchMatchCount: (count: number) => void;
-  onOpenFromPath: (path: string) => void | Promise<void>;
+  onOpenFromPath: (
+    path: string,
+    options?: { hash?: string },
+  ) => void | Promise<void>;
+  onError?: (message: string) => void;
 }
 
 interface LightboxState {
@@ -32,14 +43,20 @@ interface LightboxState {
 export function MarkdownViewer({
   html,
   documentPath,
+  documentEpoch,
+  pendingScrollHash,
+  onPendingScrollHashConsumed,
   resolvedTheme,
   searchQuery,
   searchMatchIndex,
   onSearchMatchCount,
   onOpenFromPath,
+  onError,
 }: MarkdownViewerProps) {
   const articleRef = useRef<HTMLElement>(null);
   const marksRef = useRef<HTMLElement[]>([]);
+  const pendingScrollHashRef = useRef(pendingScrollHash);
+  pendingScrollHashRef.current = pendingScrollHash;
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
   const [contentReady, setContentReady] = useState(0);
 
@@ -54,20 +71,17 @@ export function MarkdownViewer({
       const anchor = (event.target as Element | null)?.closest?.("a[href]");
       if (anchor instanceof HTMLAnchorElement) {
         const href = anchor.getAttribute("href");
-        if (
-          href &&
-          shouldInterceptMarkdownLink(href, documentPath)
-        ) {
+        if (href && shouldInterceptMarkdownLink(href, documentPath)) {
           event.preventDefault();
           event.stopPropagation();
-          const article =
-            articleRef.current ?? anchor.closest("article");
+          const article = articleRef.current ?? anchor.closest("article");
           if (article) {
             void navigateMarkdownLink({
               href,
               documentPath,
               articleRoot: article,
               onOpenMarkdown: onOpenFromPath,
+              onError,
             });
           }
           return;
@@ -83,7 +97,7 @@ export function MarkdownViewer({
         alt: target.alt,
       });
     },
-    [documentPath, onOpenFromPath],
+    [documentPath, onError, onOpenFromPath],
   );
 
   useEffect(() => {
@@ -93,6 +107,30 @@ export function MarkdownViewer({
     article.addEventListener("click", handleArticleClick);
     return () => article.removeEventListener("click", handleArticleClick);
   }, [html, handleArticleClick]);
+
+  // 切换文档：无锚点时滚回顶部（仅随 documentEpoch；避免锚点消费后再次置顶）
+  useEffect(() => {
+    if (pendingScrollHashRef.current) return;
+    scrollContentToTop();
+  }, [documentEpoch]);
+
+  useEffect(() => {
+    if (!pendingScrollHash) return;
+    const article = articleRef.current;
+    if (!article) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      scrollArticleToHash(article, pendingScrollHash);
+      onPendingScrollHashConsumed();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [
+    contentReady,
+    documentEpoch,
+    html,
+    onPendingScrollHashConsumed,
+    pendingScrollHash,
+  ]);
 
   useEffect(() => {
     const article = articleRef.current;

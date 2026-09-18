@@ -3,18 +3,22 @@ import type { ThemePreference } from "@/lib/theme/types";
 
 interface ToolbarProps {
   fileName: string | null;
+  canReload: boolean;
   themePreference: ThemePreference;
   onThemeChange: (preference: ThemePreference) => void;
   onOpenFile: () => void;
   onOpenFolder: () => void;
+  onReload: () => void;
 }
 
 export function Toolbar({
   fileName,
+  canReload,
   themePreference,
   onThemeChange,
   onOpenFile,
   onOpenFolder,
+  onReload,
 }: ToolbarProps) {
   return (
     <header className="app-toolbar">
@@ -36,6 +40,15 @@ export function Toolbar({
           title="打开文件 (Ctrl+O)"
         >
           打开
+        </button>
+        <button
+          type="button"
+          className="app-btn app-btn--toolbar"
+          onClick={onReload}
+          disabled={!canReload}
+          title="刷新当前文档 (Ctrl+R)"
+        >
+          刷新
         </button>
         {fileName && <span className="app-toolbar__file">{fileName}</span>}
       </div>

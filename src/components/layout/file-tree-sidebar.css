@@ -20,34 +20,52 @@
 .file-tree__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 0 10px 8px;
+  gap: 4px;
+  padding: 0 8px 8px;
   border-bottom: 1px dashed var(--app-border);
   margin-bottom: 6px;
 }
 
+.file-tree__nav {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1px;
+}
+
+.file-tree__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--app-text-muted);
+}
+
+.file-tree__icon-btn:hover:not(:disabled) {
+  background: var(--app-btn-hover);
+  color: var(--app-accent);
+}
+
+.file-tree__icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .file-tree__root {
+  flex: 1;
+  min-width: 0;
   font-size: 12px;
   font-weight: 600;
   color: var(--app-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.file-tree__open-folder {
-  flex-shrink: 0;
-  padding: 2px 8px;
-  font-size: 11px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--app-accent);
-}
-
-.file-tree__open-folder:hover {
-  background: var(--app-btn-hover);
 }
 
 .file-tree__list {

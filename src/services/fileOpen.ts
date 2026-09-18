@@ -8,11 +8,26 @@ const MARKDOWN_FILTERS = [
 
 const MARKDOWN_EXT = /\.(md|markdown)$/i;
 
+const NOT_TAURI_MESSAGE =
+  "浏览器预览无法打开本地文件，请使用桌面版（npm run tauri dev）";
+
 export interface OpenedFile {
   path: string;
   fileName: string;
   content: string;
 }
+
+export type OpenFileOutcome =
+  | { ok: true; file: OpenedFile }
+  | { ok: false; reason: "not-tauri"; message: string }
+  | { ok: false; reason: "cancelled" }
+  | { ok: false; reason: "not-markdown"; message: string }
+  | { ok: false; reason: "read-failed"; message: string };
+
+export type PickFolderOutcome =
+  | { ok: true; path: string }
+  | { ok: false; reason: "not-tauri"; message: string }
+  | { ok: false; reason: "cancelled" };
 
 function basename(filePath: string): string {
   const normalized = filePath.replace(/\\/g, "/");
@@ -27,21 +42,36 @@ function isMarkdownPath(filePath: string): boolean {
 /** 读取指定路径的 Markdown 文件 */
 export async function readMarkdownFromPath(
   filePath: string,
-): Promise<OpenedFile | null> {
-  if (!(await isTauri()) || !isMarkdownPath(filePath)) {
-    return null;
+): Promise<OpenFileOutcome> {
+  if (!(await isTauri())) {
+    return { ok: false, reason: "not-tauri", message: NOT_TAURI_MESSAGE };
+  }
+
+  if (!isMarkdownPath(filePath)) {
+    return {
+      ok: false,
+      reason: "not-markdown",
+      message: "只能打开 .md / .markdown 文件",
+    };
   }
 
   try {
     const content = await readTextFile(filePath);
     return {
-      path: filePath,
-      fileName: basename(filePath),
-      content,
+      ok: true,
+      file: {
+        path: filePath,
+        fileName: basename(filePath),
+        content,
+      },
     };
   } catch (error) {
     console.error("[fileOpen] read failed:", filePath, error);
-    return null;
+    return {
+      ok: false,
+      reason: "read-failed",
+      message: `无法打开文件：${basename(filePath)}`,
+    };
   }
 }
 
@@ -59,9 +89,9 @@ export async function getLaunchDocumentPaths(): Promise<string[]> {
 }
 
 /** 通过系统对话框选择工作区文件夹 */
-export async function pickWorkspaceFolder(): Promise<string | null> {
+export async function pickWorkspaceFolder(): Promise<PickFolderOutcome> {
   if (!(await isTauri())) {
-    return null;
+    return { ok: false, reason: "not-tauri", message: NOT_TAURI_MESSAGE };
   }
 
   const selected = await open({
@@ -70,16 +100,16 @@ export async function pickWorkspaceFolder(): Promise<string | null> {
   });
 
   if (selected === null || Array.isArray(selected)) {
-    return null;
+    return { ok: false, reason: "cancelled" };
   }
 
-  return selected;
+  return { ok: true, path: selected };
 }
 
 /** 通过系统对话框选择并读取 Markdown 文件 */
-export async function pickAndReadMarkdown(): Promise<OpenedFile | null> {
+export async function pickAndReadMarkdown(): Promise<OpenFileOutcome> {
   if (!(await isTauri())) {
-    return null;
+    return { ok: false, reason: "not-tauri", message: NOT_TAURI_MESSAGE };
   }
 
   const selected = await open({
@@ -89,8 +119,16 @@ export async function pickAndReadMarkdown(): Promise<OpenedFile | null> {
   });
 
   if (selected === null || Array.isArray(selected)) {
-    return null;
+    return { ok: false, reason: "cancelled" };
   }
 
   return readMarkdownFromPath(selected);
+}
+
+/** 从打开结果中取出用户可见错误文案（取消选择时返回 null） */
+export function openFailureMessage(
+  outcome: Extract<OpenFileOutcome, { ok: false }> | Extract<PickFolderOutcome, { ok: false }>,
+): string | null {
+  if (outcome.reason === "cancelled") return null;
+  return outcome.message;
 }
